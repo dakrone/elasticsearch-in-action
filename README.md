@@ -1,2 +1,2 @@
 This repository contains the code examples from the book
-<u>Elasticsearch in Action</u>.
+_Elasticsearch in Action_.
