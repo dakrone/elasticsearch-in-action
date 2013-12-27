@@ -1,5 +1,4 @@
-This repository contains the code examples from the book
-_Elasticsearch in Action_.
+This repository contains the code examples from the book [*Elasticsearch in Action*][2].
 
 When do I need them?
 --------------------
@@ -23,3 +22,4 @@ You have feedback? We'd be glad to hear it from you on the [book's forum][1]. Yo
 Happy reading and Elasticsearch-ing!
 
   [1]: http://www.manning-sandbox.com/forum.jspa?forumID=871
+  [2]: http://manning.com/hinman
