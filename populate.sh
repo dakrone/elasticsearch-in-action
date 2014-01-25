@@ -154,7 +154,7 @@ curl -s -XPOST 'localhost:9200/get-together/event/104?parent=2' -d'{
 echo
 curl -s -XPOST 'localhost:9200/get-together/event/105?parent=2' -d'{
   "host": "Lee",
-  "title": "Elasticsearh and Logstash",
+  "title": "Elasticsearch and Logstash",
   "description": "We can get together and talk about Logstash - http://logstash.net with a sneak peek at Kibana",
   "attendees": ["Lee", "Greg", "Mike", "Delilah"],
   "date": "2013-07-17T18:30",
