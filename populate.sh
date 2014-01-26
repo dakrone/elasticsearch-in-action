@@ -19,7 +19,7 @@ curl -s -XDELETE 'localhost:9200/get-together' > /dev/null
 
 # Create the next index using mapping.json
 echo "Creating 'get-together' index..."
-curl -s -XPOST 'localhost:9200/get-together' -d@./mapping.json
+curl -s -XPOST 'localhost:9200/get-together' -d@$(dirname $0)/mapping.json
 # Wait for index to become yellow
 curl -s 'localhost:9200/get-together/_health?wait_for_status=yellow&timeout=10s' > /dev/null
 echo
