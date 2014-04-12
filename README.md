@@ -3,7 +3,7 @@ This repository contains the code examples from the book [*Elasticsearch in Acti
 When do I need them?
 --------------------
 
-You will need to index the sample data provided before you run the searches from Chapter 2 and Chapter 4.
+Because it's nice to have some sample data to run various searches from the book's listings. Throughout most chapters, there's an example use-case of running a get-together site, where you have people organizing themselves into groups and hosting events. Code samples provide you with some data and a script to index that data.
 
 How do I index the sample data?
 -------------------------------
