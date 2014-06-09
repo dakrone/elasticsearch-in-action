@@ -56,7 +56,7 @@ curl -s -XPOST 'localhost:9200/get-together/group/3' -d'{
   "organizer": "Mik",
   "description": "Elasticsearch group for ES users of all knowledge levels",
   "created_on": "2012-08-07",
-  "tags": ["Elasticsearch", "big data", "lucene", "open source"],
+  "tags": ["elasticsearch", "big data", "lucene", "open source"],
   "members": ["Lee", "Igor"],
   "location": "San Francisco, California, USA"
 }'
