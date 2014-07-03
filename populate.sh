@@ -97,7 +97,8 @@ curl -s -XPOST 'localhost:9200/get-together/event/100?parent=1' -d'{
   "location": {
     "name": "Stoneys Full Steam Tavern",
     "geolocation": "39.752337,-105.00083"
-  }
+  },
+  "reviews": 4
 }'
 
 echo
@@ -109,7 +110,8 @@ curl -s -XPOST 'localhost:9200/get-together/event/101?parent=1' -d'{
   "date": "2013-07-21T18:30",
   "location": {
     "name": "IRC, #denofclojure"
-  }
+  },
+  "reviews": 2
 }'
 
 echo
@@ -122,7 +124,8 @@ curl -s -XPOST 'localhost:9200/get-together/event/102?parent=1' -d'{
   "location": {
     "name": "Stoneys Full Steam Tavern",
     "geolocation": "39.752337,-105.00083"
-  }
+  },
+  "reviews": 3
 }'
 
 echo
@@ -135,7 +138,8 @@ curl -s -XPOST 'localhost:9200/get-together/event/103?parent=2' -d'{
   "location": {
     "name": "Stoneys Full Steam Tavern",
     "geolocation": "39.752337,-105.00083"
-  }
+  },
+  "reviews": 5
 }'
 
 echo
@@ -148,7 +152,8 @@ curl -s -XPOST 'localhost:9200/get-together/event/104?parent=2' -d'{
   "location": {
     "name": "Stoneys Full Steam Tavern",
     "geolocation": "39.752337,-105.00083"
-  }
+  },
+  "reviews": 1
 }'
 
 echo
@@ -161,7 +166,8 @@ curl -s -XPOST 'localhost:9200/get-together/event/105?parent=2' -d'{
   "location": {
     "name": "Stoneys Full Steam Tavern",
     "geolocation": "39.752337,-105.00083"
-  }
+  },
+  "reviews": null
 }'
 
 echo
@@ -174,7 +180,8 @@ curl -s -XPOST 'localhost:9200/get-together/event/106?parent=3' -d'{
   "location": {
     "name": "Quid Inc",
     "geolocation": "37.798442,-122.399801"
-  }
+  },
+  "reviews": 5
 }'
 
 echo
@@ -187,7 +194,8 @@ curl -s -XPOST 'localhost:9200/get-together/event/107?parent=3' -d'{
   "location": {
     "name": "Salesforce headquarters",
     "geolocation": "37.793592,-122.397033"
-  }
+  },
+  "reviews": 3
 }'
 
 echo
@@ -200,7 +208,8 @@ curl -s -XPOST 'localhost:9200/get-together/event/108?parent=3' -d'{
   "location": {
     "name": "NoSQL Roadshow",
     "geolocation": "37.787742,-122.398964"
-  }
+  },
+  "reviews": 5
 }'
 
 echo
@@ -213,7 +222,8 @@ curl -s -XPOST 'localhost:9200/get-together/event/109?parent=4' -d'{
   "location": {
     "name": "SendGrid Denver office",
     "geolocation": "39.748477,-104.998852"
-  }
+  },
+  "reviews": 2
 }'
 
 echo
@@ -226,7 +236,8 @@ curl -s -XPOST 'localhost:9200/get-together/event/110?parent=4' -d'{
   "location": {
     "name": "Bing Boulder office",
     "geolocation": "40.018528,-105.275806"
-  }
+  },
+  "reviews": 1
 }'
 
 echo
@@ -239,7 +250,8 @@ curl -s -XPOST 'localhost:9200/get-together/event/111?parent=4' -d'{
   "location": {
     "name": "Courtyard Boulder Louisville",
     "geolocation": "39.959409,-105.163497"
-  }
+  },
+  "reviews": 4
 }'
 
 echo
@@ -252,7 +264,8 @@ curl -s -XPOST 'localhost:9200/get-together/event/112?parent=5' -d'{
   "location": {
     "name": "SkillsMatter Exchange",
     "geolocation": "51.524806,-0.099095"
-  }
+  },
+  "reviews": 3
 }'
 
 echo
@@ -265,7 +278,8 @@ curl -s -XPOST 'localhost:9200/get-together/event/113?parent=5' -d'{
   "location": {
     "name": "Alumni Theatre",
     "geolocation": "51.51558,-0.117699"
-  }
+  },
+  "reviews": 3
 }'
 
 echo
@@ -278,7 +292,8 @@ curl -s -XPOST 'localhost:9200/get-together/event/114?parent=5' -d'{
   "location": {
     "name": "SkillsMatter Exchange",
     "geolocation": "51.524806,-0.099095"
-  }
+  },
+  "reviews": 2
 }'
 
 echo
