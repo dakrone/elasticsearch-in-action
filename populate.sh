@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Check that Elasticsearch is running
 curl -s 'localhost:9200' 2>&1 > /dev/null
