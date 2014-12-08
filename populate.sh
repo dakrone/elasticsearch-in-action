@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
-
 # Check that Elasticsearch is running
-curl -s 'localhost:9200' 2>&1 > /dev/null
+curl -s "http://localhost:9200" 2>&1 > /dev/null
 if [ $? != 0 ]; then
     echo "Unable to contact Elasticsearch on port 9200."
     echo "Please ensure Elasticsearch is running and can be reached at http://localhost:9200/"
     exit -1
 fi
 
-echo "WARNING, this script will delete the 'get-together' index and re-index all data!"
+echo "WARNING, this script will delete the 'get-together' and the 'myindex' indices and re-index all data!"
 echo "Press Control-C to cancel this operation."
 echo
 echo "Press [Enter] to continue."
@@ -304,3 +303,139 @@ curl -s -XPOST 'localhost:9200/get-together/_refresh'
 
 echo
 echo "Done indexing data."
+echo
+
+echo
+echo "Creating Templates."
+curl -s -XPUT 'http://localhost:9200/_template/logging_index_all' -d'{
+    "template" : "logstash-09-*",
+    "order" : 1,
+    "settings" : {
+        "number_of_shards" : 2,
+        "number_of_replicas" : 1
+   },
+    "mappings" : {
+        "date" : { "store": false }
+    },
+    "alias" : { "november" : {} }
+}'
+
+echo
+curl -s -XPUT 'http://localhost:9200/_template/logging_index' -d '{
+    "template" : "logstash-*",
+    "order" : 0,
+    "settings" : {
+        "number_of_shards" : 2,
+        “number_of_replicas” : 1
+   },
+    "mappings" : {
+     “date” : { “store”: true }
+    }
+}'
+echo
+echo "Done Creating Templates."
+
+
+echo
+echo "Adding Dynamic Mapping"
+curl -s -XDELETE 'http://localhost:9200/myindex' > /dev/null
+curl -s -XPUT 'http://localhost:9200/myindex' -d'
+{
+    "mappings" : {
+        "my_type" : {
+            "dynamic_templates" : [{
+                "UUID" : {
+                    "match" : "*_guid",
+                    "match_mapping_type" : "string",
+                    "mapping" : {
+                        "type" : "string",
+                        "index" : "not_analyzed"
+                    }
+                }
+            }]
+        }
+    }
+}'
+echo
+echo "Done Adding Dynamic Mapping"
+
+echo
+echo "Adding Aliases"
+curl -s -XDELETE 'http://localhost:9200/november_2014_invoices' > /dev/null
+curl -s -XDELETE 'http://localhost:9200/december_2014_invoices' > /dev/null
+curl -s -XPOST 'http://localhost:9200/november_2014_invoices' -d'{}'
+echo
+curl -s -XPOST 'http://localhost:9200/december_2014_invoices' -d'{}'
+
+echo
+
+curl -s -XPOST 'http://localhost:9200/_aliases' -d'
+{
+    "actions" : [
+	{
+		"add" :
+		{
+			"index" : "november_2014_invoices",
+			"alias" : "2014_invoices"
+		},
+		"add" :
+		{
+			"index" : "december_2014_invoices",
+			"alias" : "2014_invoices"
+		},
+		"remove" :
+		{
+		  "index" : "myindex",
+		  "alias" : "december_2014_invoices"
+		}
+	}
+    ]
+}'
+echo
+echo "Done Adding Aliases"
+
+echo "Adding Filter Alias"
+curl -s -XPOST 'http://localhost:9200/_aliases' -d '
+{
+    "actions" : [
+        {
+            "add" : {
+                 "index" : "december_2014_invoices",
+                 "alias" : "bigmoney",
+                 "filter" :
+                 {
+                    "range" :
+                    {
+                      "revenue" :
+                      {
+                        "gt" : 1000
+                      }
+
+                    }
+                 }
+            }
+        }
+    ]
+}'
+echo
+echo "Done Adding Filter Alias"
+
+echo
+echo "Adding Routing Alias"
+curl -s -XPOST 'http://localhost:9200/_aliases' -d '
+{
+    "actions" : [
+        {
+            "add" : {
+                 "index" : "december_2014_invoices",
+                 "alias" : "2014_invoices",
+                 "search_routing" : "en,es",
+                 "index_routing" : "en"
+            }
+        }
+    ]
+}'
+echo
+echo "Done Adding Routing Alias"
+
+echo
