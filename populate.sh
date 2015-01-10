@@ -365,7 +365,19 @@ curl -s -XDELETE 'http://localhost:9200/november_2014_invoices' > /dev/null
 curl -s -XDELETE 'http://localhost:9200/december_2014_invoices' > /dev/null
 curl -s -XPOST 'http://localhost:9200/november_2014_invoices' -d'{}'
 echo
-curl -s -XPOST 'http://localhost:9200/december_2014_invoices' -d'{}'
+curl -s -XPOST 'http://localhost:9200/december_2014_invoices' -d'
+{
+    "mappings" :
+    {
+        "invoice" :
+        {
+            "properties" :
+            {
+                "revenue" : { "type" : "integer" }
+            }
+        }
+    }
+}'
 
 echo
 
