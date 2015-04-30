@@ -9,7 +9,7 @@ How do I index the sample data?
 -------------------------------
 
     # clone the repository
-    git clone git@github.com:dakrone/elasticsearch-in-action.git
+    git clone https://github.com/dakrone/elasticsearch-in-action.git
 
     # index the sample data
     elasticsearch-in-action/populate.sh
