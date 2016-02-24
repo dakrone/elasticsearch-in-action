@@ -1,0 +1,112 @@
+{
+  "settings" : {
+    "number_of_shards" : 2,
+    "number_of_replicas" : 1,
+    "index": {
+      "analysis": {
+        "analyzer": {
+          "myCustomAnalyzer": {
+            "type": "custom",
+            "tokenizer": "myCustomTokenizer",
+            "filter": ["myCustomFilter1", "myCustomFilter2"],
+            "char_filter": ["myCustomCharFilter"]
+          }
+        },
+        "tokenizer": {
+          "myCustomTokenizer": {
+            "type": "letter"
+          },
+          "myCustomNGramTokenizer": {
+            "type" : "ngram",
+            "min_gram" : 2,
+            "max_gram" : 3
+          }
+
+        },
+        "filter": {
+          "myCustomFilter1": {
+            "type": "lowercase"
+          },
+          "myCustomFilter2": {
+            "type": "kstem"
+          }
+        },
+        "char_filter": {
+          "myCustomCharFilter": {
+            "type": "mapping",
+            "mappings": ["ph=>f", " u => you ", "ES=>Elasticsearch"]
+          }
+        }
+      }
+    }
+  },
+  "mappings" : {
+    "group" : {
+      "_source" : {
+        "enabled" : true
+      },
+      "_all" : {
+        "enabled" : true
+      },
+      "properties" : {
+        "organizer" : { "type" : "string" },
+        "name" : { "type" : "string" },
+        "description" : {
+          "type" : "string",
+          "term_vector": "with_positions_offsets"
+        },
+        "created_on" : {
+          "type" : "date",
+          "format" : "yyyy-MM-dd"
+        },
+        "tags" : {
+          "type" : "string",
+          "index" : "analyzed",
+          "fields": {  
+            "verbatim" : {
+              "type" : "string",
+              "index" : "not_analyzed"
+            }
+          }
+        },
+        "members" : { "type" : "string" },
+        "location_group" : { "type" : "string" }
+      }
+    },
+    "event" : {
+      "_source" : {
+        "enabled" : true
+      },
+      "_all" : {
+        "enabled" : false
+      },
+      "_parent" : {
+        "type" : "group"
+      },
+      "properties" : {
+        "host" : { "type" : "string" },
+        "title" : { "type" : "string" },
+        "description" : {
+          "type" : "string",
+          "term_vector": "with_positions_offsets"
+        },
+        "attendees" : { "type" : "string" },
+        "date" : {
+          "type" : "date",
+          "format" : "date_hour_minute"
+        },
+        "reviews" : {
+          "type" : "integer",
+          "null_value" : 0
+        },
+        "location_event": {
+          "type" : "object",
+          "properties" : {
+            "name" : { "type" : "string" },
+            "geolocation" : { "type" : "geo_point" }
+          }
+        }
+      }
+    }
+  }
+}
