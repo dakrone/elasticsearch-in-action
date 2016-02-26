@@ -70,7 +70,7 @@
           }
         },
         "members" : { "type" : "string" },
-        "location" : { "type" : "string" }
+        "location_group" : { "type" : "string" }
       }
     },
     "event" : {
@@ -99,7 +99,7 @@
           "type" : "integer",
           "null_value" : 0
         },
-        "location": {
+        "location_event": {
           "type" : "object",
           "properties" : {
             "name" : { "type" : "string" },
