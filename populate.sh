@@ -336,7 +336,7 @@ curl -s -XPUT "http://$ADDRESS/_template/logging_index" -d '{
         “number_of_replicas” : 1
    },
     "mappings" : {
-     “date” : { “store”: true }
+     "date" : { "store": true }
     }
 }'
 echo
