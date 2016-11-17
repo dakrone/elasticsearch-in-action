@@ -49,10 +49,10 @@
         "enabled" : true
       },
       "properties" : {
-        "organizer" : { "type" : "string" },
-        "name" : { "type" : "string" },
+        "organizer" : { "type" : "text" },
+        "name" : { "type" : "text" },
         "description" : {
-          "type" : "string",
+          "type" : "text",
           "term_vector": "with_positions_offsets"
         },
         "created_on" : {
@@ -60,17 +60,17 @@
           "format" : "yyyy-MM-dd"
         },
         "tags" : {
-          "type" : "string",
+          "type" : "text",
           "index" : "analyzed",
-          "fields": {  
+          "fields": {
             "verbatim" : {
-              "type" : "string",
+              "type" : "text",
               "index" : "not_analyzed"
             }
           }
         },
-        "members" : { "type" : "string" },
-        "location_group" : { "type" : "string" }
+        "members" : { "type" : "text" },
+        "location_group" : { "type" : "text" }
       }
     },
     "event" : {
@@ -84,13 +84,13 @@
         "type" : "group"
       },
       "properties" : {
-        "host" : { "type" : "string" },
-        "title" : { "type" : "string" },
+        "host" : { "type" : "text" },
+        "title" : { "type" : "text" },
         "description" : {
-          "type" : "string",
+          "type" : "text",
           "term_vector": "with_positions_offsets"
         },
-        "attendees" : { "type" : "string" },
+        "attendees" : { "type" : "text" },
         "date" : {
           "type" : "date",
           "format" : "date_hour_minute"
@@ -102,7 +102,7 @@
         "location_event": {
           "type" : "object",
           "properties" : {
-            "name" : { "type" : "string" },
+            "name" : { "type" : "text" },
             "geolocation" : { "type" : "geo_point" }
           }
         }
