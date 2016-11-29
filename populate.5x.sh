@@ -23,9 +23,9 @@ read
 # Delete the old index, swallow failures if it doesn't exist
 curl -s -XDELETE "$ADDRESS/get-together" > /dev/null
 
-# Create the next index using mapping.json
+# Create the next index using mapping.5x.json
 echo "Creating 'get-together' index..."
-curl -s -XPOST "$ADDRESS/get-together" -d@$(dirname $0)/mapping.json
+curl -s -XPUT "$ADDRESS/get-together" -d@$(dirname $0)/mapping.5x.json
 
 # Wait for index to become yellow
 curl -s "$ADDRESS/get-together/_health?wait_for_status=yellow&timeout=10s" > /dev/null
@@ -320,9 +320,11 @@ curl -s -XPUT "http://$ADDRESS/_template/logging_index_all" -d'{
     "settings" : {
         "number_of_shards" : 2,
         "number_of_replicas" : 1
-   },
+    },
     "mappings" : {
-        "date" : { "store": false }
+      "date" : {
+        "_source" : { "enabled": false }
+      }
     },
     "alias" : { "november" : {} }
 }'
@@ -333,10 +335,12 @@ curl -s -XPUT "http://$ADDRESS/_template/logging_index" -d '{
     "order" : 0,
     "settings" : {
         "number_of_shards" : 2,
-        “number_of_replicas” : 1
-   },
+        "number_of_replicas" : 1
+    },
     "mappings" : {
-     "date" : { "store": true }
+      "date" : {
+        "_source" : { "enabled": true }
+      }
     }
 }'
 echo
@@ -370,9 +374,9 @@ echo
 echo "Adding Aliases"
 curl -s -XDELETE "http://$ADDRESS/november_2014_invoices" > /dev/null
 curl -s -XDELETE "http://$ADDRESS/december_2014_invoices" > /dev/null
-curl -s -XPOST "http://$ADDRESS/november_2014_invoices" -d'{}'
+curl -s -XPUT "http://$ADDRESS/november_2014_invoices" -d'{}'
 echo
-curl -s -XPOST "http://$ADDRESS/december_2014_invoices" -d'
+curl -s -XPUT "http://$ADDRESS/december_2014_invoices" -d'
 {
     "mappings" :
     {
@@ -396,13 +400,13 @@ curl -s -XPOST "http://$ADDRESS/_aliases" -d'
 		{
 			"index" : "november_2014_invoices",
 			"alias" : "2014_invoices"
-		},
-		"add" :
+		}},
+		{"add" :
 		{
 			"index" : "december_2014_invoices",
 			"alias" : "2014_invoices"
-		},
-		"remove" :
+		}},
+		{"remove" :
 		{
 		  "index" : "myindex",
 		  "alias" : "december_2014_invoices"

@@ -14,6 +14,9 @@ How do I index the sample data?
     # index the sample data
     elasticsearch-in-action/populate.sh
 
+    # index the sample data version 5 and above
+    elasticsearch-in-action/populate.5x.sh
+
 I have questions or suggestions for these samples
 -------------------------------------------------
 
