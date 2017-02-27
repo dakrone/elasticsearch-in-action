@@ -25,7 +25,7 @@ curl -s -XDELETE "$ADDRESS/get-together" > /dev/null
 
 # Create the next index using mapping.json
 echo "Creating 'get-together' index..."
-curl -s -XPOST "$ADDRESS/get-together" -d@$(dirname $0)/mapping.json
+curl -s -XPUT "$ADDRESS/get-together" -d@$(dirname $0)/mapping.json
 
 # Wait for index to become yellow
 curl -s "$ADDRESS/get-together/_health?wait_for_status=yellow&timeout=10s" > /dev/null
@@ -320,9 +320,6 @@ curl -s -XPUT "http://$ADDRESS/_template/logging_index_all" -d'{
     "settings" : {
         "number_of_shards" : 2,
         "number_of_replicas" : 1
-   },
-    "mappings" : {
-        "date" : { "store": false }
     },
     "alias" : { "november" : {} }
 }'
@@ -333,10 +330,7 @@ curl -s -XPUT "http://$ADDRESS/_template/logging_index" -d '{
     "order" : 0,
     "settings" : {
         "number_of_shards" : 2,
-        “number_of_replicas” : 1
-   },
-    "mappings" : {
-     "date" : { "store": true }
+        "number_of_replicas" : 1
     }
 }'
 echo
@@ -370,9 +364,9 @@ echo
 echo "Adding Aliases"
 curl -s -XDELETE "http://$ADDRESS/november_2014_invoices" > /dev/null
 curl -s -XDELETE "http://$ADDRESS/december_2014_invoices" > /dev/null
-curl -s -XPOST "http://$ADDRESS/november_2014_invoices" -d'{}'
+curl -s -XPUT "http://$ADDRESS/november_2014_invoices" -d'{}'
 echo
-curl -s -XPOST "http://$ADDRESS/december_2014_invoices" -d'
+curl -s -XPUT "http://$ADDRESS/december_2014_invoices" -d'
 {
     "mappings" :
     {
@@ -390,25 +384,11 @@ echo
 
 curl -s -XPOST "http://$ADDRESS/_aliases" -d'
 {
-    "actions" : [
-	{
-		"add" :
-		{
-			"index" : "november_2014_invoices",
-			"alias" : "2014_invoices"
-		},
-		"add" :
-		{
-			"index" : "december_2014_invoices",
-			"alias" : "2014_invoices"
-		},
-		"remove" :
-		{
-		  "index" : "myindex",
-		  "alias" : "december_2014_invoices"
-		}
-	}
-    ]
+  "actions" : [
+    {"add" : {"index" : "november_2014_invoices", "alias" : "2014_invoices"}},
+    {"add" : {"index" : "december_2014_invoices", "alias" : "2014_invoices"}},
+    {"remove" : {"index" : "myindex", "alias" : "december_2014_invoices"}}
+  ]
 }'
 echo
 echo "Done Adding Aliases"
