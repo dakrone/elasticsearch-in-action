@@ -41,11 +41,17 @@
     }
   },
   "mappings" : {
-    "group" : {
+    "_doc" : {
       "_source" : {
         "enabled" : true
       },
       "properties" : {
+        "relationship_type": {
+          "type": "join",
+          "relations" : {
+            "group": "event"
+          }
+        },
         "organizer" : { "type" : "text" },
         "name" : { "type" : "text" },
         "description" : {
@@ -58,7 +64,6 @@
         },
         "tags" : {
           "type" : "text",
-          "index" : "analyzed",
           "fields": {
             "verbatim" : {
               "type" : "keyword"
@@ -66,23 +71,9 @@
           }
         },
         "members" : { "type" : "text" },
-        "location_group" : { "type" : "text" }
-      }
-    },
-    "event" : {
-      "_source" : {
-        "enabled" : true
-      },
-      "_parent" : {
-        "type" : "group"
-      },
-      "properties" : {
+        "location_group" : { "type" : "text" },
         "host" : { "type" : "text" },
         "title" : { "type" : "text" },
-        "description" : {
-          "type" : "text",
-          "term_vector": "with_positions_offsets"
-        },
         "attendees" : { "type" : "text" },
         "date" : {
           "type" : "date",
