@@ -74,7 +74,14 @@
         "location_group" : { "type" : "text" },
         "host" : { "type" : "text" },
         "title" : { "type" : "text" },
-        "attendees" : { "type" : "text" },
+        "attendees" : {
+          "type": "text",
+          "fields": {
+            "verbatim": {
+              "type": "keyword
+            }
+          }
+        },
         "date" : {
           "type" : "date",
           "format" : "date_hour_minute"
