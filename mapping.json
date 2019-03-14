@@ -78,7 +78,7 @@
           "type": "text",
           "fields": {
             "verbatim": {
-              "type": "keyword
+              "type": "keyword"
             }
           }
         },
