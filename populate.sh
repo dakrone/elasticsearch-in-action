@@ -386,7 +386,7 @@ curl -s -XPUT "http://$ADDRESS/_template/logging_index_all" -H'Content-Type: app
         "number_of_shards" : 2,
         "number_of_replicas" : 1
     },
-    "alias" : { "november" : {} }
+    "aliases" : { "november" : {} }
 }'
 
 echo
