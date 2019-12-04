@@ -15,8 +15,9 @@ How do I index the sample data?
     # clone the repository
     git clone https://github.com/dakrone/elasticsearch-in-action.git
 
-    # OR, if using Elasticsearch 5.x, use the 5.x branch. Similarly, for 6.x you'd use the 6.x branch:
-    git clone https://github.com/dakrone/elasticsearch-in-action.git -b 6.x
+    # switch to a branch that matches your version. Master works with 1.x and 2.x
+    # but we currently support 5.x, 6.x and 7.x as well:
+    git clone https://github.com/dakrone/elasticsearch-in-action.git -b 7.x
 
     # index the sample data
     elasticsearch-in-action/populate.sh
