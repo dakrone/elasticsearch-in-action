@@ -41,61 +41,59 @@
     }
   },
   "mappings" : {
-    "_doc" : {
-      "_source" : {
-        "enabled" : true
+    "_source" : {
+      "enabled" : true
+    },
+    "properties" : {
+      "relationship_type": {
+        "type": "join",
+        "relations" : {
+          "group": "event"
+        }
       },
-      "properties" : {
-        "relationship_type": {
-          "type": "join",
-          "relations" : {
-            "group": "event"
+      "organizer" : { "type" : "text" },
+      "name" : { "type" : "text" },
+      "description" : {
+        "type" : "text",
+        "term_vector": "with_positions_offsets"
+      },
+      "created_on" : {
+        "type" : "date",
+        "format" : "yyyy-MM-dd"
+      },
+      "tags" : {
+        "type" : "text",
+        "fields": {
+          "verbatim" : {
+            "type" : "keyword"
           }
-        },
-        "organizer" : { "type" : "text" },
-        "name" : { "type" : "text" },
-        "description" : {
-          "type" : "text",
-          "term_vector": "with_positions_offsets"
-        },
-        "created_on" : {
-          "type" : "date",
-          "format" : "yyyy-MM-dd"
-        },
-        "tags" : {
-          "type" : "text",
-          "fields": {
-            "verbatim" : {
-              "type" : "keyword"
-            }
+        }
+      },
+      "members" : { "type" : "text" },
+      "location_group" : { "type" : "text" },
+      "host" : { "type" : "text" },
+      "title" : { "type" : "text" },
+      "attendees" : {
+        "type": "text",
+        "fields": {
+          "verbatim": {
+            "type": "keyword"
           }
-        },
-        "members" : { "type" : "text" },
-        "location_group" : { "type" : "text" },
-        "host" : { "type" : "text" },
-        "title" : { "type" : "text" },
-        "attendees" : {
-          "type": "text",
-          "fields": {
-            "verbatim": {
-              "type": "keyword"
-            }
-          }
-        },
-        "date" : {
-          "type" : "date",
-          "format" : "date_hour_minute"
-        },
-        "reviews" : {
-          "type" : "integer",
-          "null_value" : 0
-        },
-        "location_event": {
-          "type" : "object",
-          "properties" : {
-            "name" : { "type" : "text" },
-            "geolocation" : { "type" : "geo_point" }
-          }
+        }
+      },
+      "date" : {
+        "type" : "date",
+        "format" : "date_hour_minute"
+      },
+      "reviews" : {
+        "type" : "integer",
+        "null_value" : 0
+      },
+      "location_event": {
+        "type" : "object",
+        "properties" : {
+          "name" : { "type" : "text" },
+          "geolocation" : { "type" : "geo_point" }
         }
       }
     }

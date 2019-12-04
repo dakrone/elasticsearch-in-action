@@ -408,17 +408,15 @@ curl -s -XDELETE "http://$ADDRESS/myindex" > /dev/null
 curl -s -XPUT "http://$ADDRESS/myindex" -H'Content-Type: application/json' -d'
 {
     "mappings" : {
-        "my_type" : {
-            "dynamic_templates" : [{
-                "UUID" : {
-                    "match" : "*_guid",
-                    "match_mapping_type" : "string",
-                    "mapping" : {
-                        "type" : "keyword"
-                    }
+        "dynamic_templates" : [{
+            "UUID" : {
+                "match" : "*_guid",
+                "match_mapping_type" : "string",
+                "mapping" : {
+                    "type" : "keyword"
                 }
-            }]
-        }
+            }
+        }]
     }
 }'
 echo
@@ -434,12 +432,9 @@ curl -s -XPUT "http://$ADDRESS/december_2014_invoices" -H'Content-Type: applicat
 {
     "mappings" :
     {
-        "invoice" :
+        "properties" :
         {
-            "properties" :
-            {
-                "revenue" : { "type" : "integer" }
-            }
+            "revenue" : { "type" : "integer" }
         }
     }
 }'
