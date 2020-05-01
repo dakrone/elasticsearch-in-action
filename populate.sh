@@ -3,14 +3,14 @@
 ADDRESS=$1
 
 if [ -z $ADDRESS ]; then
-  ADDRESS="localhost:9200"
+  ADDRESS="http://localhost:9200"
 fi
 
 # Check that Elasticsearch is running
-curl -s "http://$ADDRESS" 2>&1 > /dev/null
+curl -s "$ADDRESS" 2>&1 > /dev/null
 if [ $? != 0 ]; then
     echo "Unable to contact Elasticsearch at $ADDRESS"
-    echo "Please ensure Elasticsearch is running and can be reached at http://$ADDRESS/"
+    echo "Please ensure Elasticsearch is running and can be reached at $ADDRESS"
     exit -1
 fi
 
@@ -379,7 +379,7 @@ echo
 
 echo
 echo "Creating Templates."
-curl -s -XPUT "http://$ADDRESS/_template/logging_index_all" -H'Content-Type: application/json' -d'{
+curl -s -XPUT "$ADDRESS/_template/logging_index_all" -H'Content-Type: application/json' -d'{
     "template" : "logstash-09-*",
     "order" : 1,
     "settings" : {
@@ -390,7 +390,7 @@ curl -s -XPUT "http://$ADDRESS/_template/logging_index_all" -H'Content-Type: app
 }'
 
 echo
-curl -s -XPUT "http://$ADDRESS/_template/logging_index" -H'Content-Type: application/json' -d '{
+curl -s -XPUT "$ADDRESS/_template/logging_index" -H'Content-Type: application/json' -d '{
     "template" : "logstash-*",
     "order" : 0,
     "settings" : {
@@ -404,8 +404,8 @@ echo "Done Creating Templates."
 
 echo
 echo "Adding Dynamic Mapping"
-curl -s -XDELETE "http://$ADDRESS/myindex" > /dev/null
-curl -s -XPUT "http://$ADDRESS/myindex" -H'Content-Type: application/json' -d'
+curl -s -XDELETE "$ADDRESS/myindex" > /dev/null
+curl -s -XPUT "$ADDRESS/myindex" -H'Content-Type: application/json' -d'
 {
     "mappings" : {
         "dynamic_templates" : [{
@@ -424,11 +424,11 @@ echo "Done Adding Dynamic Mapping"
 
 echo
 echo "Adding Aliases"
-curl -s -XDELETE "http://$ADDRESS/november_2014_invoices" > /dev/null
-curl -s -XDELETE "http://$ADDRESS/december_2014_invoices" > /dev/null
-curl -s -XPUT "http://$ADDRESS/november_2014_invoices"
+curl -s -XDELETE "$ADDRESS/november_2014_invoices" > /dev/null
+curl -s -XDELETE "$ADDRESS/december_2014_invoices" > /dev/null
+curl -s -XPUT "$ADDRESS/november_2014_invoices"
 echo
-curl -s -XPUT "http://$ADDRESS/december_2014_invoices" -H'Content-Type: application/json' -d'
+curl -s -XPUT "$ADDRESS/december_2014_invoices" -H'Content-Type: application/json' -d'
 {
     "mappings" :
     {
@@ -441,7 +441,7 @@ curl -s -XPUT "http://$ADDRESS/december_2014_invoices" -H'Content-Type: applicat
 
 echo
 
-curl -s -XPOST "http://$ADDRESS/_aliases" -H'Content-Type: application/json' -d'
+curl -s -XPOST "$ADDRESS/_aliases" -H'Content-Type: application/json' -d'
 {
   "actions" : [
     {"add" : {"index" : "november_2014_invoices", "alias" : "2014_invoices"}},
@@ -453,7 +453,7 @@ echo
 echo "Done Adding Aliases"
 
 echo "Adding Filter Alias"
-curl -s -XPOST "http://$ADDRESS/_aliases" -H'Content-Type: application/json' -d '
+curl -s -XPOST "$ADDRESS/_aliases" -H'Content-Type: application/json' -d '
 {
     "actions" : [
         {
@@ -480,7 +480,7 @@ echo "Done Adding Filter Alias"
 
 echo
 echo "Adding Routing Alias"
-curl -s -XPOST "http://$ADDRESS/_aliases" -H'Content-Type: application/json' -d '
+curl -s -XPOST "$ADDRESS/_aliases" -H'Content-Type: application/json' -d '
 {
     "actions" : [
         {
