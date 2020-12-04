@@ -25,9 +25,9 @@ How do I index the sample data?
 I have questions or suggestions for these samples
 -------------------------------------------------
 
-You have feedback? We'd be glad to hear it from you on the [book's forum][1]. You can also send pull requests or open issues on this repository.
+You have feedback? We'd be glad to hear it from you on the book's forum. To get there, go to the [live book][1] and click on the discuss button on the top-right. You can also send pull requests or open issues on this repository.
 
 Happy reading and Elasticsearch-ing!
 
-  [1]: http://www.manning-sandbox.com/forum.jspa?forumID=871
+  [1]: https://livebook.manning.com/book/elasticsearch-in-action/
   [2]: http://manning.com/hinman
