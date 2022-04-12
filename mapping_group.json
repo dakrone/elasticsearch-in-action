@@ -1,0 +1,85 @@
+{
+  "settings": {
+    "number_of_shards": 2,
+    "number_of_replicas": 1,
+    "index": {
+      "analysis": {
+        "analyzer": {
+          "myCustomAnalyzer": {
+            "type": "custom",
+            "tokenizer": "myCustomTokenizer",
+            "filter": [
+              "myCustomFilter1",
+              "myCustomFilter2"
+            ],
+            "char_filter": [
+              "myCustomCharFilter"
+            ]
+          }
+        },
+        "tokenizer": {
+          "myCustomTokenizer": {
+            "type": "letter"
+          },
+          "myCustomNGramTokenizer": {
+            "type": "ngram",
+            "min_gram": 2,
+            "max_gram": 3
+          }
+        },
+        "filter": {
+          "myCustomFilter1": {
+            "type": "lowercase"
+          },
+          "myCustomFilter2": {
+            "type": "kstem"
+          }
+        },
+        "char_filter": {
+          "myCustomCharFilter": {
+            "type": "mapping",
+            "mappings": [
+              "ph=>f",
+              " u => you ",
+              "ES=>Elasticsearch"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "organizer": {
+        "type": "text"
+      },
+      "name": {
+        "type": "text"
+      },
+      "description": {
+        "type": "text",
+        "term_vector": "with_positions_offsets"
+      },
+      "created_on": {
+        "type": "date",
+        "format": "yyyy-MM-dd"
+      },
+      "tags": {
+        "type": "text",
+        "index": "true",
+        "fields": {
+          "verbatim": {
+            "type": "text",
+            "index": "false"
+          }
+        }
+      },
+      "members": {
+        "type": "text"
+      },
+      "location_group": {
+        "type": "text"
+      }
+    }
+  }
+}
