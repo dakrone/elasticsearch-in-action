@@ -51,7 +51,12 @@
   "mappings": {
     "properties": {
       "organizer": {
-        "type": "text"
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
       },
       "name": {
         "type": "text"
